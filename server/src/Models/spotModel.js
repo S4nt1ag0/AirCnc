@@ -27,6 +27,6 @@ const SpotModel = new Schema({
 });
 
 SpotModel.virtual('thumbnail_url').get(function () {
-  return `http://localhost:3333/files/${this.thumbmail}`  
+  return `/files/${this.thumbmail}`  
 })
 module.exports = model('Spot',SpotModel);

@@ -16,6 +16,13 @@ module.exports={
         })
 
         await booking.populate('spot').populate('user').execPopulate();
+
+       
+        const ownerSpot = await User.findOne({_id:booking.spot.user})
+        //no futuro tratar caso de Owner não ativo
+        if(ownerSpot.SocketId){
+            req.io.to(ownerSpot.SocketId).emit('booking_request', booking);
+        }
         return res.json(booking)
         } 
 

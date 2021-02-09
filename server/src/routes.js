@@ -5,7 +5,8 @@ const spotController = require('./Controllers/spotController');
 const dashboardController = require('./Controllers/dashboardController');
 const bookingcontroller = require('./Controllers/bookingController');
 const uploadConfig = require('./config/uploads');
-
+const approvalController = require('./Controllers/approvalController')
+const rejectionController = require('./Controllers/rejectionController')
 const routes = express.Router();
 const upload = multer(uploadConfig);
  
@@ -17,4 +18,6 @@ routes.get('/spots',spotController.index);
 routes.get('/dashboardspots',dashboardController.index);
 
 routes.post('/spots/:spot_id/bookings',bookingcontroller.store);
+routes.post('/booking/:booking_id/approvals',approvalController.store)
+routes.post('/booking/:booking_id/rejections',rejectionController.store)
 module.exports=routes; 

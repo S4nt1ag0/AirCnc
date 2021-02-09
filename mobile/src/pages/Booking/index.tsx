@@ -1,15 +1,17 @@
 import React, {useState, useEffect } from 'react';
 import { View, Text,SafeAreaView, AsyncStorage, TextInput, Alert } from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
+import io from 'socket.io-client';
 import api from '../../services/api'
 import styles from './style'
 
 export default function Booking({ route, navigation }){
     const { spotId } = route.params;
     const [date,setDate] = useState('')
-
+   
     async function handleSubmit() {
         const userId = await AsyncStorage.getItem('userId')
+
         await api.post(`/spots/${spotId}/bookings`,{
             date
         },{ 
@@ -21,6 +23,17 @@ export default function Booking({ route, navigation }){
         Alert.alert('Solicitação de reserva enviada.')
         navigation.navigate('List')
     }
+
+  useEffect(()=>{
+    AsyncStorage.getItem('userId').then( userId=>{
+        const socket = io(`${api.defaults.baseURL}`, { query: { user: userId } });
+        socket.on('booking_result', (data:any) =>{
+          Alert.alert(`Sua reserva em ${data.spot.company} em ${data.date} foi ${data.approved ? 'APROVADO' : 'REJEITADO'}`)
+  })
+    })
+    
+    
+  },[])
 
      function handleCancel() {
         navigation.navigate('List')
