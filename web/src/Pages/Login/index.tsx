@@ -8,11 +8,18 @@ import { useHistory } from 'react-router-dom'
 
     async function handleSubmit(event : any){
         event.preventDefault('');
-        const response = await api.post('/login',{email});
-        const {_id} = response.data;
-        console.log(_id)
-        localStorage.setItem('user', _id );
-        history.push('/dashboard');
+        if(email===''){
+          alert('email não preenchido, porfavor insira um email valido')
+        }else{
+          api.post('/login',{email}).then((response)=>{
+          localStorage.setItem('user', response.data._id );
+          history.push('/dashboard');
+          }).catch((err)=>{
+            alert('parece que o servidor está offline no momento :/ , tente novamente mais tarde')
+          });
+        }
+        
+        
     }
 
 

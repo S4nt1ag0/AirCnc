@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <img src={logo} alt="Arncnc"/>
+        <img src={logo} alt="Aircnc"/>
         <div className="content">
         <Routes></Routes>
         </div>

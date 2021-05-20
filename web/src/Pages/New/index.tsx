@@ -15,23 +15,28 @@ export default function New() {
     const preview = useMemo(() => {
     return thumbnail ? URL.createObjectURL(thumbnail) : null;
   }, [thumbnail]);
-    
+
     async function handleSubmit(event: any){
         event.preventDefault();
-        const data = new FormData();
-        const user = localStorage.getItem('user');
+        if(Number(price)){
+            const data = new FormData();
+            const user = localStorage.getItem('user');
 
-        data.append('thumbmail',thumbnail)
-        data.append('company',company)
-        data.append('techs',techs)
-        data.append('price',price)
+            data.append('thumbmail',thumbnail)
+            data.append('company',company)
+            data.append('techs',techs)
+            data.append('price',`${price}`)
 
-        await api.post('/spots',data,{
-            headers:{user}
-        });
-        history.push('/dashboard');
-         
-    }
+            await api.post('/spots',data,{
+                headers:{user}
+            });
+            history.push('/dashboard');
+        }else{
+            alert('o preço digitado não é um numero, verifique se não colocou , no lugar do .')
+        }
+        }
+        
+       
 
 
     return(
@@ -61,7 +66,7 @@ export default function New() {
             />
 
             <label htmlFor="price">VALOR DA DIÁRIA * <span>(em branco pra GRATUITO)</span></label>
-            <input 
+            <input
                 id="price"
                 placeholder="Valor cobrado por dia"
                 value={price}
