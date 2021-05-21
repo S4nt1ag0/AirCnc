@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-  <img src="./web/src/assets/logo.svg" alt="AirCnc" width="120">
+  <img src="./web/src/Assets/images/logo.svg" alt="AirCnc" width="120">
 <br>
 <br>
 </h1>
@@ -11,13 +11,6 @@
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
   </a>
 </p>
-
-<div>
-<--
-  <img src="./assets/demo-web.gif" alt="demo-web" height="425">
-  <img src="./assets/demo-mobile.gif" alt="demo-mobile" height="425">
---!>
-</div>
 
 <hr />
 
