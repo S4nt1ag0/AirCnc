@@ -20,4 +20,5 @@ routes.get('/dashboardspots',dashboardController.index);
 routes.post('/spots/:spot_id/bookings',bookingcontroller.store);
 routes.post('/booking/:booking_id/approvals',approvalController.store)
 routes.post('/booking/:booking_id/rejections',rejectionController.store)
-module.exports=routes; 
+routes.put('/deleteSpot', spotController.delete)
+module.exports=routes;  

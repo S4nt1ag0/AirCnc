@@ -4,13 +4,12 @@ import {RectButton} from 'react-native-gesture-handler';
 import Logo from '../../assets/svg/logo.svg';
 import styles from './style'
 
-import { AuthContext } from '../../../Routes'; 
+import AuthContext from '../../contexts/AuthContext';  
 
 export default function Login(){
   const [email, setEmail] = React.useState('');
   const [techs, setTechs] = React.useState('');
-
-  const { signIn } = React.useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
     return (
     <KeyboardAvoidingView enabled={Platform.OS=== 'ios'} behavior="padding" style={styles.container}>
       <Logo height={42}  fill='#f05a5b'/>
@@ -38,9 +37,9 @@ export default function Login(){
           onChangeText={setTechs}
         />
       </View>
-      <RectButton style={styles.button} onPress={() => signIn({email,techs}) }>
+      <RectButton style={styles.button} onPress={() => signIn(email,techs) }>
         <Text style={styles.buttonText}> Encontrar Spots </Text>
       </RectButton>
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView> 
   );
 } 

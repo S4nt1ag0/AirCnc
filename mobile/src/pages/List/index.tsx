@@ -3,14 +3,15 @@ import { Text, SafeAreaView, ScrollView, AsyncStorage } from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import Logo from '../../assets/svg/logo.svg';
 import styles from './style.ts'
-import { AuthContext } from '../../../Routes'; 
+import AuthContext from '../../contexts/AuthContext'; 
 import SpotList from '../../components/SpotList'
 
 export default function List(){
     const [techs,setTechs]= useState([])
     const { signOut } = React.useContext(AuthContext);
     useEffect(()=>{
-        AsyncStorage.getItem('techs').then(savetechs =>{
+        AsyncStorage.getItem('@AirCnc:techs').then(savetechs =>{
+            console.log(savetechs)
             const techsArray = savetechs.split(',').map(tech =>tech.trim());
             setTechs(techsArray);
         })

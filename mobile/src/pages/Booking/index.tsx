@@ -10,7 +10,7 @@ export default function Booking({ route, navigation }){
     const [date,setDate] = useState('')
    
     async function handleSubmit() {
-        const userId = await AsyncStorage.getItem('userId')
+        const userId = await AsyncStorage.getItem('@AirCnc:userId')
 
         await api.post(`/spots/${spotId}/bookings`,{
             date
@@ -20,18 +20,18 @@ export default function Booking({ route, navigation }){
             }
         })
 
-        Alert.alert('Solicitação de reserva enviada.')
+        Alert.alert('Solicitação de reserva', 'sua solicitação de reserva foi enviada com sucesso')
         navigation.navigate('List')
     }
-
+ 
   useEffect(()=>{
-    AsyncStorage.getItem('userId').then( userId=>{
+    AsyncStorage.getItem('@AirCnc:userId').then( userId=>{
         const socket = io(`${api.defaults.baseURL}`, { query: { user: userId } });
         socket.on('booking_result', (data:any) =>{
-          Alert.alert(`Sua reserva em ${data.spot.company} em ${data.date} foi ${data.approved ? 'APROVADO' : 'REJEITADO'}`)
+          Alert.alert('Atualização de solicitação',`Sua reserva em ${data.spot.company} em ${data.date} foi ${data.approved ? 'APROVADO' : 'REJEITADO'}`)
   })
     })
-    
+     
     
   },[])
 

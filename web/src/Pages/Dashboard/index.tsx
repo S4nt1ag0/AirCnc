@@ -2,7 +2,8 @@ import React, {useState, useEffect, useMemo} from 'react';
 import { Link } from 'react-router-dom'
 import api from  '../../Services/api';
 import io from 'socket.io-client';
-import './styles.css'
+import './styles.css';
+import trash from '../../Assets/images/trash.svg';
 export default function Dashboard() {
     const [spots, setSpots] = useState<any[]>([])
     const userid = localStorage.getItem('user');
@@ -44,6 +45,18 @@ export default function Dashboard() {
       
   }
 
+  async function handleDelete(id:String) {
+      await api.put('/deleteSpot',{spotId:id}).then((response)=>{
+          if(response.data==='ok'){
+              setSpots(spots.filter(spot => spot._id !== id));
+              alert('spot excluido com sucesso!')
+          }else{
+              alert('parece que ocorreu algum problema e não foi possivel excluir o spot, porfavor tente novamente')
+          }
+      })
+      
+      
+  }
   
 
     return(
@@ -54,8 +67,8 @@ export default function Dashboard() {
                     <p>
                     <strong>{reserva.user.email}</strong> está solicitando uma reserva em <strong>{reserva.spot.company}</strong> para a data : <strong>{reserva.date}</strong> 
                     </p>
-                    <button onClick={()=>handleAccept(reserva._id)}>ACEITAR</button>
-                    <button onClick={()=>handleReject(reserva._id)}>REJEITAR</button>
+                    <button className="buttonAccept" onClick={()=>handleAccept(reserva._id)}>ACEITAR</button>
+                    <button className="buttonReject" onClick={()=>handleReject(reserva._id)}>REJEITAR</button>
                     </li>
                 ))}
             </ul>
@@ -63,7 +76,12 @@ export default function Dashboard() {
                 {spots.map(spot => (
                     <li key={spot._id}>
                         <header style={{ backgroundImage: `url(${api.defaults.baseURL}${spot.thumbnail_url})`}} />
+                        <div className="spot-list-container-name">
                         <strong>{spot.company}</strong>
+                            <button onClick={()=>{handleDelete(spot._id)}}>
+                                <img src={trash} alt="delete spot" />
+                            </button>
+                        </div>
                         <span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO'}</span>
                     </li>
                 ))}

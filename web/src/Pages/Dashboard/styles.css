@@ -49,5 +49,32 @@ ul.notifications li button {
     font-weight: bold;
     margin-top: 10px;
     border:0;
-
+    color:white;
+    border-radius:10px;
+    padding: 7px 10px;
+    cursor: pointer; 
+}
+.buttonAccept{
+    background-color: #84C870;
+}
+.buttonReject{
+    background-color: #E55E5E; 
+}
+.spot-list-container-name{  
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;
+    margin: 5px;  
+} 
+.spot-list-container-name button{
+    background-color: red; 
+    border-radius: 5px;
+    padding:3px;
+    cursor: pointer;
+    border:none;
+}
+.spot-list-container-name button img{
+    height: 20px;
+    width: auto;
 }

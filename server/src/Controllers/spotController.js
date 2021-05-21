@@ -22,5 +22,13 @@ module.exports={
     
         return res.json(spot)
 
+    },
+
+    async delete(req,res){
+        await Spot.deleteOne({_id:req.body.spotId}).then(()=>{
+            return res.json('ok')
+        }).catch(()=>{
+            return res.json('fail')
+        })
     }
 } 

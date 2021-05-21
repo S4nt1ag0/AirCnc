@@ -2,11 +2,14 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Routes from './Routes';
+import { AuthProvider } from "./src/contexts/AuthContext";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Routes />
+       <AuthProvider>
+        <Routes />
+      </AuthProvider>
       <StatusBar style="auto" />
     </View>
   );

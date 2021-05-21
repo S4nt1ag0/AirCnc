@@ -1,4 +1,5 @@
 const Booking = require('../Models/bookingModel');
+const User = require('../Models/userModel');
 
 module.exports={
     async store(req,res){
@@ -8,7 +9,9 @@ module.exports={
 
         booking.approved = false;
 
-        const ownerBooking = User.findOne({_id:booking.user._id})
+        console.log('entrou')
+
+        const ownerBooking = await User.findOne({_id:booking.user._id})
 
         if(ownerBooking.SocketId){
             console.log('entrou no reject')

@@ -9,10 +9,8 @@ module.exports={
 
         booking.approved = true;
 
-        console.log ('entrou na labaxuria'+ booking.user._id)
-
         const ownerBooking = await User.findOne({_id:booking.user._id})
-    console.log(ownerBooking)
+
         if(ownerBooking.SocketId){
             console.log('entrou no approved')
             req.io.to(ownerBooking.SocketId).emit('booking_result', booking);
