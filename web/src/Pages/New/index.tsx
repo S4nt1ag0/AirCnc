@@ -18,7 +18,7 @@ export default function New() {
 
     async function handleSubmit(event: any){
         event.preventDefault();
-        if(Number(price)){
+        if(price==='' || Number(price)){
             const data = new FormData();
             const user = localStorage.getItem('user');
 
@@ -30,7 +30,7 @@ export default function New() {
             await api.post('/spots',data,{
                 headers:{user}
             });
-            history.push('/dashboard');
+            history.push('/');
         }else{
             alert('o preço digitado não é um numero, verifique se não colocou , no lugar do .')
         }

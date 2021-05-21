@@ -4,6 +4,7 @@ import api from  '../../Services/api';
 import io from 'socket.io-client';
 import './styles.css';
 import trash from '../../Assets/images/trash.svg';
+
 export default function Dashboard() {
     const [spots, setSpots] = useState<any[]>([])
     const userid = localStorage.getItem('user');

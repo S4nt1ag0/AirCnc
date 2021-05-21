@@ -1,27 +1,18 @@
-import React, { useState } from 'react';
-import api from '../../Services/api';
-import { useHistory } from 'react-router-dom'
+import React, { useState, useContext } from 'react';
+import AuthContext from '../../contexts/AuthContext'
 
  function Login() {
-     const history = useHistory();
     const [email, setEmail] = useState('');
+    const { signIn } = useContext(AuthContext);
 
     async function handleSubmit(event : any){
         event.preventDefault('');
         if(email===''){
           alert('email não preenchido, porfavor insira um email valido')
         }else{
-          api.post('/login',{email}).then((response)=>{
-          localStorage.setItem('user', response.data._id );
-          history.push('/dashboard');
-          }).catch((err)=>{
-            alert('parece que o servidor está offline no momento :/ , tente novamente mais tarde')
-          });
+          signIn(email);
         }
-        
-        
     }
-
 
     return(
         <>
